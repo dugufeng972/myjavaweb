@@ -2,6 +2,7 @@ package com.ddw.myjavaweb.pojo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,4 +21,8 @@ public class Emp {
     private Integer deptId;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+    //部门名称
+    private String deptName;
+    //封装工作经历信息
+    private List<EmpExpr> exprList;
 }
