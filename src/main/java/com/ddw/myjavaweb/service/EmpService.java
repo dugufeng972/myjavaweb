@@ -10,5 +10,7 @@ public interface EmpService {
     PageResult<Emp> find(Integer page, Integer pageSize, Integer gender, String name, LocalDate begin, LocalDate end);
 
     void save(Emp emp);
+
+    void delete(Integer[] ids);
     
 }

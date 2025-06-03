@@ -1,9 +1,12 @@
 package com.ddw.myjavaweb.controller;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +46,18 @@ public class EmpController {
     public Result savePost(@RequestBody Emp emp) {
         // EmpService.save(emp);
         EmpService.save(emp);
+        return Result.success();
+    }
+    //删除员工
+    @DeleteMapping
+    //接收数组方法一
+    // public Result delete(@RequestParam List<Integer> ids) {
+
+    //     return Result.success();
+    // }
+    public Result delete(Integer[] ids) {
+        System.out.println(Arrays.toString(ids));
+        EmpService.delete(ids);
         return Result.success();
     }
 }

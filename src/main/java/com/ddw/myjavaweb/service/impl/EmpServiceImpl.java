@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ddw.myjavaweb.mapper.EmpExprMapper;
 import com.ddw.myjavaweb.mapper.EmpMapper;
@@ -42,5 +43,12 @@ public class EmpServiceImpl implements EmpService{
             empExprs.forEach(expr -> expr.setEmpId(emp.getId()));
             empExprMapper.insertBatch(empExprs);
         }
+    }
+    //删除员工
+    @Transactional(rollbackFor = { Exception.class })
+    @Override
+    public void delete(Integer[] ids) {
+        // TODO Auto-generated method stub
+        empMapper.deleteById(ids);
     }
 }
