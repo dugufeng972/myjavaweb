@@ -2,13 +2,16 @@ package com.ddw.myjavaweb.mapper;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import com.ddw.myjavaweb.pojo.Emp;
+import com.ddw.myjavaweb.pojo.GenderData;
 
 /*
  * 员工sql查询
@@ -29,4 +32,15 @@ public interface EmpMapper {
     "values (#{username}, #{password}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{entryDate}, #{deptId}, #{createTime}, #{updateTime})")
     public void insert(Emp emp);
     public void deleteById(Integer[] ids);
+    //根据id查询用户信息
+    public Emp getInfoById(Integer id);
+    //修改员工信息
+    // public void update(Emp emp);
+    public void delBeforeUpdate(Emp emp);
+
+    //统计职位数据
+    // @MapKey("职位")            //指定Map的key
+    List<Map<String, Object>> countEmpJobData();
+    //获取性别信息
+    public List<GenderData> getEmpGenderData();
 }

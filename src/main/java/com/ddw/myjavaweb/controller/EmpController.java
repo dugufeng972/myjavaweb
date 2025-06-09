@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,12 +43,12 @@ public class EmpController {
     // String name,
     // @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
     // @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end
-    @PostMapping
-    public Result savePost(@RequestBody Emp emp) {
-        // EmpService.save(emp);
-        EmpService.save(emp);
-        return Result.success();
-    }
+    // @PostMapping
+    // public Result savePost(@RequestBody Emp emp) {
+    //     // EmpService.save(emp);
+    //     EmpService.save(emp);
+    //     return Result.success();
+    // }
     //删除员工
     @DeleteMapping
     //接收数组方法一
@@ -58,6 +59,18 @@ public class EmpController {
     public Result delete(Integer[] ids) {
         System.out.println(Arrays.toString(ids));
         EmpService.delete(ids);
+        return Result.success();
+    }
+    //根据员工id查询信息
+    @GetMapping("/{id}")
+    public Result getInfoById(@PathVariable("id") Integer id) {
+        Emp emp = EmpService.getInfoById(id);
+        return Result.success(emp);
+    }
+    //修改员工信息
+    @PostMapping
+    public Result update(@RequestBody Emp emp){
+        EmpService.update(emp);
         return Result.success();
     }
 }

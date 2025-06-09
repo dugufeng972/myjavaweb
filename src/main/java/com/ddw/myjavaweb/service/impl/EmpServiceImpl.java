@@ -51,4 +51,19 @@ public class EmpServiceImpl implements EmpService{
         // TODO Auto-generated method stub
         empMapper.deleteById(ids);
     }
+    //根据员工id查询信息
+    @Override
+    public Emp getInfoById(Integer id) {
+        // TODO Auto-generated method stub
+        Emp emp = empMapper.getInfoById(id);
+        return emp;
+    }
+    //修改员工信息
+    @Override
+    public void update(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        //先删除信息
+        // empMapper
+        empMapper.delBeforeUpdate(emp);
+    }
 }
