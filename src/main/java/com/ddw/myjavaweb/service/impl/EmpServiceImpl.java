@@ -2,7 +2,9 @@ package com.ddw.myjavaweb.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,10 @@ import com.ddw.myjavaweb.mapper.EmpExprMapper;
 import com.ddw.myjavaweb.mapper.EmpMapper;
 import com.ddw.myjavaweb.pojo.Emp;
 import com.ddw.myjavaweb.pojo.EmpExpr;
+import com.ddw.myjavaweb.pojo.LoginInfo;
 import com.ddw.myjavaweb.pojo.PageResult;
 import com.ddw.myjavaweb.service.EmpService;
+import com.ddw.myjavaweb.utils.JwtUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -65,5 +69,22 @@ public class EmpServiceImpl implements EmpService{
         //先删除信息
         // empMapper
         empMapper.delBeforeUpdate(emp);
+    }
+    //登录查询
+    @Override
+    public LoginInfo login(Emp emp) {
+        Emp usr = empMapper.selectByUsernameAndPasswd(emp);
+        if (usr != null) {
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("id", usr.getId());
+            claims.put("username", usr.getUsername());
+            try {
+                return new LoginInfo(usr.getId(), usr.getUsername(), usr.getName(), JwtUtils.generateToken(claims));
+            } catch (Exception e) {
+                e.printStackTrace();
+                // 可以根据需要抛出自定义异常或返回错误信息
+            }
+        }
+        return null;
     }
 }

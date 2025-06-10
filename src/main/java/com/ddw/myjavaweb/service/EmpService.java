@@ -3,6 +3,7 @@ package com.ddw.myjavaweb.service;
 import java.time.LocalDate;
 
 import com.ddw.myjavaweb.pojo.Emp;
+import com.ddw.myjavaweb.pojo.LoginInfo;
 import com.ddw.myjavaweb.pojo.PageResult;
 
 public interface EmpService {
@@ -16,5 +17,7 @@ public interface EmpService {
     Emp getInfoById(Integer id);
 
     void update(Emp emp);
+
+    LoginInfo login(Emp emp);
     
 }
